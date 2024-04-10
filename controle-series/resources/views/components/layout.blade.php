@@ -6,22 +6,30 @@
     <title>{{ $title }} - Controle de Séries</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
-<body class="container">
-    <h1>{{ $title }}</h1>
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a href="{{ route('series.index') }}" class="navbar-brand">Home</a>
+            <a href="{{ route('logout') }}" class="navbar-brand">Sair</a>
         </div>
-    @endif
-    @isset($mensagemSucesso)
-    <div class="alert alert-success">
-        {{ $mensagemSucesso }}
+    </nav>
+    <div class="container">
+        <h1>{{ $title }}</h1>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        @isset($mensagemSucesso)
+        <div class="alert alert-success">
+            {{ $mensagemSucesso }}
+        </div>
+        @endisset
+        {{ $slot }}
     </div>
-    @endisset
-    {{ $slot }}
 </body>
 </html>
