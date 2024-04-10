@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\EpisodeController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SeasonsController;
 use App\Http\Controllers\SeriesController;
+use App\Http\Middleware\Autenticador;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('/series');
     // return view('welcome');
-});
+})->middleware(Autenticador::class);
 
 // Route::resource('/series', SeriesController::class)->only(['index', 'create', 'store', 'destroy', 'edit', 'update']);
 
@@ -29,6 +31,10 @@ Route::get('/series/{series}/seasons', [SeasonsController::class, 'index'])->nam
 
 Route::get('seasons/{season}/episodes', [EpisodeController::class, 'index'])->name("episodes.index");
 Route::post('seasons/{season}/episodes', [EpisodeController::class, 'update'])->name("episodes.update");
+
+Route::get('/login', [LoginController::class, 'index'])->name('login.index');
+
+Route::post('/login', [LoginController::class, 'store'])->name('signin');
 
 // Route::delete('/series/destroy/{serie}', [SeriesController::class, 'destroy'])->name("series.destroy");
 
